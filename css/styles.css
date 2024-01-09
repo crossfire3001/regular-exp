@@ -1,0 +1,220 @@
+/*=============== FONTS ===============*/
+@font-face {
+  font-family: Nunitoregular;
+  src: url("../fonts/Nunitoregular.woff");
+}
+
+/*=============== BASE ===============*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Nunitoregular, sans-serif;
+  background: rgb(255, 255, 251);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 251, 1) 50%,
+    rgba(248, 248, 250, 1) 50%
+  );
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.base__input {
+  border: none;
+  outline: none;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/*=============== REGISTRATION ===============*/
+.registration {
+  position: relative;
+}
+
+.registration__container {
+  padding: 191px 0 194px 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.logo__img {
+  position: absolute;
+  left: calc(50% - 131px);
+  top: 27px;
+}
+
+.registration__info {
+  max-width: 600px;
+  align-items: center;
+}
+
+.registration__title {
+  color: #000;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.registration__text {
+  color: #636363;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 42px;
+  max-width: 496px;
+}
+
+.registration__form {
+  display: grid;
+  gap: 20px;
+}
+
+.registration__details {
+  display: flex;
+  flex-direction: column;
+}
+
+.registration__details-title {
+  color: #c6c6c4;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.registration__base-input {
+  max-width: 452px;
+  color: #323232;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27px;
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid #c6c6c4;
+}
+
+.registration__terms {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.registration__terms-text {
+  color: #636363;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.registration__action {
+  margin-bottom: 44px;
+}
+
+.registration__btn {
+  width: 210px;
+  border-radius: 40px;
+  background: #dd3142;
+  padding: 21px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registration__action {
+  text-align: center;
+}
+
+.registration__sign {
+  text-align: center;
+  color: #636363;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sign__action {
+  text-align: center;
+}
+
+.sign__btn {
+  display: inline-block;
+  width: 210px;
+  border-radius: 40px;
+  background: #dd3142;
+  padding: 21px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/*=============== MODAL ===============*/
+.hidden {
+  display: none;
+}
+
+.fade-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(25, 25, 25, 0.6);
+}
+
+.modal__window {
+  width: 400px;
+  height: 300px;
+  background: rgb(255, 255, 251);
+  position: fixed;
+  top: calc(50% - 150px);
+  left: calc(50% - 200px);
+  display: flex;
+  align-items: center;
+}
+
+.modal__card {
+  padding: 20px;
+  text-align: center;
+}
+
+.modal__card-text {
+  color: #636363;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+  margin-bottom: 20px;
+}
+
+.modal__btn {
+  display: inline-block;
+  width: 210px;
+  border-radius: 40px;
+  background: #dd3142;
+  padding: 21px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}

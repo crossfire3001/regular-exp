@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HomeWorks</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <section class="registration">
+      <div class="container registration__container">
+        <div class="row">
+          <div class="logo registration__logo">
+            <img src="images/logo.png" alt="logo" class="logo__img" />
+          </div>
+          <div class="registration__info">
+            <div class="registration__title">Get your free account</div>
+            <div class="registration__text">
+              Try homeWorks BUSINESS free for 15 days. Downgrade to Basic (Free
+              Forever) anytime.
+            </div>
+            <div class="registration__form">
+              <div class="registration__details fullname">
+                <span class="registration__details-title">Full Name</span>
+                <input
+                  type="text"
+                  id="fullname-input"
+                  class="base__input registration__base-input"
+                />
+              </div>
+              <div class="registration__details">
+                <span class="registration__details-title">Your username</span>
+                <input
+                  type="text"
+                  id="username-input"
+                  class="base__input registration__base-input"
+                />
+              </div>
+              <div class="registration__details email">
+                <span class="registration__details-title">E-mail</span>
+                <input
+                  type="text"
+                  id="email-input"
+                  class="base__input registration__base-input"
+                />
+              </div>
+              <div class="registration__details">
+                <span class="registration__details-title">Password</span>
+                <input
+                  type="text"
+                  id="password-input"
+                  class="base__input registration__base-input"
+                />
+              </div>
+              <div class="registration__details repeat-password">
+                <span class="registration__details-title">Repeat Password</span>
+                <input
+                  type="text"
+                  id="repeat-password-input"
+                  class="base__input registration__base-input"
+                />
+              </div>
+              <div class="registration__details registration__terms">
+                <input type="checkbox" id="checkbox" />
+                <span class="registration__terms-text"
+                  >Agree to our Terms of Service and Privacy Statement</span
+                >
+              </div>
+              <div class="registration__action">
+                <button type="button" class="btn registration__btn">
+                  Sign Up
+                </button>
+              </div>
+              <div class="sign__action hidden">
+                <button type="button" class="btn sign__btn">Sign In</button>
+              </div>
+              <a href="#" class="registration__sign">
+                Already have an account?
+              </a>
+            </div>
+          </div>
+          <div class="registration__image">
+            <img
+              src="images/registration__bg.png"
+              alt="registration"
+              class="registration__rocket-img"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal fade-block hidden" id="modal">
+      <div class="modal__window" id="modal-window">
+        <div class="modal__card">
+          <div class="modal__card-text">
+            На вашу почту выслана ссылка, перейдите по ней, чтобы завершить
+            регистрацию!
+          </div>
+          <div class="modal__card-action">
+            <button type="button" class="btn modal__btn">ОК</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
