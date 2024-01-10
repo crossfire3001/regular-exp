@@ -43,22 +43,24 @@ window.onload = function () {
 
     let inputFilled = false;
 
-    const errors = () => {
-      errorInput.forEach(item => {
-        item.style.display = 'flex';
-      })
+
+    const error = () => {
       baseInput.forEach(item => {
         item.style.borderBottom = '1px solid rgb(230, 0, 122)';
       });
+      errorInput.forEach(item => {
+        item.style.display = 'flex';
+      })
     }
+
 
     // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      errors();
+      error();
       inputFilled = true;
     } else {
       fullNameInput.style.borderBottom = '1px solid green';
-      
+      errorInput[0].style.display = 'none';
     }
 
     // Проверка ника
