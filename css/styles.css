@@ -167,6 +167,10 @@ li {
   cursor: pointer;
 }
 
+.input-error {
+  display: none;
+}
+
 /*=============== MODAL ===============*/
 .hidden {
   display: none;
@@ -218,3 +222,4 @@ li {
   font-weight: 700;
   cursor: pointer;
 }
+
