@@ -38,30 +38,38 @@ window.onload = function () {
     );
     const inputFilled = false;
 
+    // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
       alert("Заполните имя");
       return;
     }
+
+    // Проверка ника
     if (!userNameInput.value.match(/^[A-Za-z0-9_-]+$/)) {
       alert("Заполните заполните ник пользователя");
       return;
     }
-    if (!emailInput.value) {
-      alert("Заполните почту");
+
+    // Проверка электронной почты
+    if (typeof emailInput.value !== 'string' || !emailInput.value.includes('@')) {
+      alert("Некорректный формат электронной почты");
       return;
     }
-    if (!passwordInput.value || passwordInput.value.length <= 8) {
-      alert("Заполните пароль");
+
+    // Проверка пароля
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    if (typeof passwordInput.value !== 'string' || !passwordRegex.test(passwordInput.value)) {
+      alert('Пароль должен быть не менее 8 символов и содержать минимум одну цифру, одну заглавную и одну строчную букву');
       return;
     }
-    if (!repeatPasswordInput.value || repeatPasswordInput.value.length <= 8) {
-      alert("Заполните пароль повторно");
-      return;
-    }
+
+    // Проверка повторного ввода пароля
     if (passwordInput.value !== repeatPasswordInput.value) {
       alert("Пароли не совпадают");
       return;
     }
+
+    // Проверка соглашения с условиями
     if (!checkBox.checked) {
       alert("Подтвердите условия соглашения");
       return;
