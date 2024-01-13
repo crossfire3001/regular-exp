@@ -147,7 +147,6 @@ window.onload = function () {
     repeatPassword.remove();
     registrationTerms.remove();
     registrationAction.remove();
-    registrationSign.remove();
     signAction.classList.remove("hidden");
 
     signAction.addEventListener("click", (e) => {
@@ -167,6 +166,11 @@ window.onload = function () {
         });
       }
     });
+
+    registrationSign.addEventListener('click', () => {
+      registrationSign.innerHTML = 'Registration';
+      window.location.href = '/index.html';
+    })
   }
 
   modalClose.addEventListener('click', logIn);
