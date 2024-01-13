@@ -1,10 +1,15 @@
 window.onload = function () {
   const fullNameInput = document.getElementById("fullname-input");
   const userNameInput = document.getElementById("username-input");
+  const emailInput = document.getElementById("email-input");
+  const passwordInput = document.getElementById("password-input");
+  const repeatPasswordInput = document.getElementById(
+      "repeat-password-input"
+  );
+
   const checkBox = document.getElementById("checkbox");
   const registrationBtn = document.querySelector(".registration__btn");
   const modal = document.querySelector(".modal");
-  const passwordInput = document.getElementById("password-input");
 
   const modalClose = modal.querySelector(".modal__btn");
   const registrationSign = document.querySelector('.registration__sign');
@@ -17,6 +22,10 @@ window.onload = function () {
   const registrationAction = document.querySelector(".registration__action");
   const signAction = document.querySelector(".sign__action");
 
+  const baseInput = document.querySelectorAll('.base__input');
+  const errorInput = document.querySelectorAll('.input-error');
+
+  let clients = [];
 
   fullNameInput.onkeydown = (e) => {
     const letters = e.key;
@@ -42,41 +51,78 @@ window.onload = function () {
   };
 
   registrationBtn.addEventListener("click", (e) => {
-    const emailInput = document.getElementById("email-input");
-    const passwordInput = document.getElementById("password-input");
-    const repeatPasswordInput = document.getElementById(
-      "repeat-password-input"
-    );
-    const inputFilled = false;
+    e.preventDefault();
 
+    let inputFilled = false;
+
+    const error = () => {
+      baseInput.forEach(item => {
+        item.style.borderBottom = '1px solid rgb(230, 0, 122)';
+      });
+      errorInput.forEach(item => {
+        item.style.display = 'flex';
+      });
+    }
+
+    // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      alert("Заполните имя");
-      return;
+      error();
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[0].style.display = 'none';
     }
+
+    // Проверка ника
     if (!userNameInput.value.match(/^[A-Za-z0-9_-]+$/)) {
-      alert("Заполните заполните ник пользователя");
-      return;
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[1].style.display = 'none';
     }
-    if (!emailInput.value) {
-      alert("Заполните почту");
-      return;
+
+    // Проверка электронной почты
+    if (typeof emailInput.value !== 'string' || !emailInput.value.includes('@')) {
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[2].style.display = 'none';
     }
-    if (!passwordInput.value || passwordInput.value.length <= 8) {
-      alert("Заполните пароль");
-      return;
+
+    // Проверка пароля
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    if (typeof passwordInput.value !== 'string' || !passwordRegex.test(passwordInput.value)) {
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[3].style.display = 'none';
     }
-    if (!repeatPasswordInput.value || repeatPasswordInput.value.length <= 8) {
-      alert("Заполните пароль повторно");
-      return;
-    }
+
+    // Проверка повторного ввода пароля
     if (passwordInput.value !== repeatPasswordInput.value) {
-      alert("Пароли не совпадают");
-      return;
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[4].style.display = 'none';
     }
+
+    // Проверка соглашения с условиями
     if (!checkBox.checked) {
-      alert("Подтвердите условия соглашения");
-      return;
+      inputFilled = true;
+    } else {
+      fullNameInput.style.borderBottom = '1px solid green';
+      errorInput[5].style.display = 'none';
     }
+
+    if (localStorage.getItem("clients")) {
+      clients = JSON.parse(localStorage.getItem("clients"));
+    }
+
+    clients.push({
+      userName: userNameInput.value,
+      password: passwordInput.value,
+    });
+    localStorage.setItem("clients", JSON.stringify(clients));
 
     if (!inputFilled) {
       [
