@@ -155,8 +155,10 @@ window.onload = function () {
     signAction.addEventListener("click", (e) => {
       let signActionFilled = false;
 
+      let storedClients = JSON.parse(localStorage.getItem('clients'));
+
       if (userNameInput) {
-        if (!userNameInput.value) {
+        if (!userNameInput.value || userNameInput.value !== storedClients.userName) {
           signActionFilled = true;
           userNameInput.classList.add('error');
         } else {
