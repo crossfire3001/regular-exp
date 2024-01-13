@@ -13,12 +13,13 @@
 
 body {
   font-family: Nunitoregular, sans-serif;
-  background: rgb(255, 255, 251);
+  background: grey;
+  /* background: rgb(255, 255, 251);
   background: linear-gradient(
     90deg,
     rgba(255, 255, 251, 1) 50%,
     rgba(248, 248, 250, 1) 50%
-  );
+  ); */
   background-repeat: no-repeat;
   position: relative;
 }

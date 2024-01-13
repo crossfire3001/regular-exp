@@ -6,8 +6,6 @@ window.onload = function () {
   const modal = document.querySelector(".modal");
   const modalClose = modal.querySelector(".modal__btn");
   const passwordInput = document.getElementById("password-input");
-  const baseInput = document.querySelectorAll('.base__input');
-  const errorInput = document.querySelectorAll('.input-error');
 
   fullNameInput.onkeydown = (e) => {
     const letters = e.key;
@@ -32,61 +30,41 @@ window.onload = function () {
     }
   };
 
-
-
   registrationBtn.addEventListener("click", (e) => {
     const emailInput = document.getElementById("email-input");
     const passwordInput = document.getElementById("password-input");
     const repeatPasswordInput = document.getElementById(
       "repeat-password-input"
     );
+    const inputFilled = false;
 
-    let inputFilled = false;
-
-
-    const error = () => {
-      baseInput.forEach(item => {
-        item.style.borderBottom = '1px solid rgb(230, 0, 122)';
-      });
-      errorInput.forEach(item => {
-        item.style.display = 'flex';
-      })
-    }
-
-
-    // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      error();
-      inputFilled = true;
-    } else {
-      fullNameInput.style.borderBottom = '1px solid green';
-      errorInput[0].style.display = 'none';
+      alert("Заполните имя");
+      return;
     }
-
-    // Проверка ника
     if (!userNameInput.value.match(/^[A-Za-z0-9_-]+$/)) {
-        inputFilled = true;
+      alert("Заполните заполните ник пользователя");
+      return;
     }
-
-    // Проверка электронной почты
-    if (typeof emailInput.value !== 'string' || !emailInput.value.includes('@')) {
-        inputFilled = true;
+    if (!emailInput.value) {
+      alert("Заполните почту");
+      return;
     }
-
-    // Проверка пароля
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (typeof passwordInput.value !== 'string' || !passwordRegex.test(passwordInput.value)) {
-        inputFilled = true;
+    if (!passwordInput.value || passwordInput.value.length <= 8) {
+      alert("Заполните пароль");
+      return;
     }
-
-    // Проверка повторного ввода пароля
+    if (!repeatPasswordInput.value || repeatPasswordInput.value.length <= 8) {
+      alert("Заполните пароль повторно");
+      return;
+    }
     if (passwordInput.value !== repeatPasswordInput.value) {
-        inputFilled = true;
+      alert("Пароли не совпадают");
+      return;
     }
-
-    // Проверка соглашения с условиями
     if (!checkBox.checked) {
-        inputFilled = true;
+      alert("Подтвердите условия соглашения");
+      return;
     }
 
     if (!inputFilled) {
@@ -99,11 +77,6 @@ window.onload = function () {
       ].forEach((item) => {
         checkBox.checked = false;
         item.value = "";
-        /* if (!baseInput) {
-          item.style.borderBottom = '1px solid rgb(230, 0, 122)';
-        } else {
-          item.style.borderBottom = '1px solid green';
-        }*/
       });
       modal.classList.remove("hidden");
     }
