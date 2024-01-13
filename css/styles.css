@@ -168,8 +168,13 @@ li {
   cursor: pointer;
 }
 
+/* ошибки */
 .input-error {
   display: none;
+}
+
+.error {
+  border: 2px solid red;
 }
 
 /*=============== MODAL ===============*/
