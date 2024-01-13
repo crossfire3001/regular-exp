@@ -4,8 +4,19 @@ window.onload = function () {
   const checkBox = document.getElementById("checkbox");
   const registrationBtn = document.querySelector(".registration__btn");
   const modal = document.querySelector(".modal");
-  const modalClose = modal.querySelector(".modal__btn");
   const passwordInput = document.getElementById("password-input");
+
+  const modalClose = modal.querySelector(".modal__btn");
+  const registrationSign = document.querySelector('.registration__sign');
+
+  const registrationTitle = document.querySelector(".registration__title");
+  const fullName = document.querySelector(".fullname");
+  const email = document.querySelector(".email");
+  const repeatPassword = document.querySelector(".repeat-password");
+  const registrationTerms = document.querySelector(".registration__terms");
+  const registrationAction = document.querySelector(".registration__action");
+  const signAction = document.querySelector(".sign__action");
+
 
   fullNameInput.onkeydown = (e) => {
     const letters = e.key;
@@ -82,16 +93,7 @@ window.onload = function () {
     }
   });
 
-  modalClose.addEventListener("click", (e) => {
-    const registrationTitle = document.querySelector(".registration__title");
-    const fullName = document.querySelector(".fullname");
-    const email = document.querySelector(".email");
-    const repeatPassword = document.querySelector(".repeat-password");
-    const registrationTerms = document.querySelector(".registration__terms");
-    const registrationAction = document.querySelector(".registration__action");
-    const registrationSign = document.querySelector(".registration__sign");
-    const signAction = document.querySelector(".sign__action");
-
+  const logIn = () => {
     modal.classList.add("hidden");
     registrationTitle.innerText = "Log in to the system";
     fullName.remove();
@@ -119,5 +121,9 @@ window.onload = function () {
         });
       }
     });
-  });
+  }
+
+  modalClose.addEventListener('click', logIn);
+  registrationSign.addEventListener('click', logIn);
+
 };
