@@ -63,7 +63,6 @@ window.onload = function () {
 
     // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      error();
       inputFilled = true;
       fullNameInput.classList.add('error');
     } else {
