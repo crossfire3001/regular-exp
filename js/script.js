@@ -23,7 +23,6 @@ window.onload = function () {
   const signAction = document.querySelector(".sign__action");
 
   const baseInput = document.querySelectorAll('.base__input');
-  const errorInput = document.querySelectorAll('.input-error');
 
   let clients = [];
 
@@ -63,57 +62,63 @@ window.onload = function () {
 
     // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      inputFilled = true;
+      fullNameInput.nextElementSibling.style.display = 'flex';
       fullNameInput.classList.add('error');
+      inputFilled = true;
     } else {
+      fullNameInput.nextElementSibling.style.display = 'none';
       fullNameInput.classList.remove('error');
-      errorInput[0].style.display = 'none';
     }
 
     // Проверка ника
     if (!userNameInput.value.match(/^[A-Za-z0-9_-]+$/)) {
-      inputFilled = true;
+      userNameInput.nextElementSibling.style.display = 'flex';
       userNameInput.classList.add('error');
+      inputFilled = true;
     } else {
+      userNameInput.nextElementSibling.style.display = 'none';
       userNameInput.classList.remove('error');
-      errorInput[1].style.display = 'none';
     }
 
     // Проверка электронной почты
-    if (typeof emailInput.value !== 'string' || !emailInput.value.includes('@')) {
-      inputFilled = true;
+    if (emailInput.value !== '' || !emailInput.value.includes('@')) {
+      emailInput.nextElementSibling.style.display = 'flex';
       emailInput.classList.add('error');
+      inputFilled = true;
     } else {
+      emailInput.nextElementSibling.style.display = 'none';
       emailInput.classList.remove('error');
-      errorInput[2].style.display = 'none';
     }
 
     // Проверка пароля
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (typeof passwordInput.value !== 'string' || !passwordRegex.test(passwordInput.value)) {
-      inputFilled = true;
+    if (passwordInput.value !== '' || !passwordRegex.test(passwordInput.value)) {
+      passwordInput.nextElementSibling.style.display = 'flex';
       passwordInput.classList.add('error');
+      inputFilled = true;
     } else {
+      passwordInput.nextElementSibling.style.display = 'none';
       passwordInput.classList.remove('error');
-      errorInput[3].style.display = 'none';
     }
 
     // Проверка повторного ввода пароля
     if (passwordInput.value !== repeatPasswordInput.value || repeatPasswordInput.value === '') {
-      inputFilled = true;
+      repeatPasswordInput.nextElementSibling.style.display = 'flex';
       repeatPasswordInput.classList.add('error');
+      inputFilled = true;
     } else {
+      repeatPasswordInput.nextElementSibling.style.display = 'none';
       repeatPasswordInput.classList.remove('error');
-      errorInput[4].style.display = 'none';
     }
 
     // Проверка соглашения с условиями
     if (!checkBox.checked) {
-      inputFilled = true;
+      checkBox.nextElementSibling.style.display = 'flex';
       checkBox.classList.add('error');
+      inputFilled = true;
     } else {
+      checkBox.nextElementSibling.style.display = 'none';
       checkBox.classList.remove('error');
-      errorInput[5].style.display = 'none';
     }
 
     if (localStorage.getItem("clients")) {
