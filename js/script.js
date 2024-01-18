@@ -3,26 +3,22 @@ window.onload = function () {
   const userNameInput = document.getElementById("username-input");
   const emailInput = document.getElementById("email-input");
   const passwordInput = document.getElementById("password-input");
-  const repeatPasswordInput = document.getElementById(
-      "repeat-password-input"
-  );
+  const repeatPasswordInput = document.getElementById("repeat-password-input");
 
   const checkBox = document.getElementById("checkbox");
   const registrationBtn = document.querySelector(".registration__btn");
   const modal = document.querySelector(".modal");
 
   const modalClose = modal.querySelector(".modal__btn");
-  const registrationSign = document.querySelector('.registration__sign');
+  const registrationSign = document.querySelector(".registration__sign");
 
   const registrationTitle = document.querySelector(".registration__title");
-  const fullName = document.querySelector(".fullname");
-  const email = document.querySelector(".email");
   const repeatPassword = document.querySelector(".repeat-password");
   const registrationTerms = document.querySelector(".registration__terms");
   const registrationAction = document.querySelector(".registration__action");
   const signAction = document.querySelector(".sign__action");
 
-  const baseInput = document.querySelectorAll('.base__input');
+  const baseInput = document.querySelectorAll(".base__input");
 
   let clients = [];
 
@@ -50,10 +46,10 @@ window.onload = function () {
   };
 
   const error = () => {
-    errorInput.forEach(item => {
-      item.style.display = 'flex';
+    errorInput.forEach((item) => {
+      item.style.display = "flex";
     });
-  }
+  };
 
   registrationBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -62,63 +58,70 @@ window.onload = function () {
 
     // Проверка имени
     if (!fullNameInput.value.match(/^[A-Za-z\s]+$/)) {
-      fullNameInput.nextElementSibling.style.display = 'flex';
-      fullNameInput.classList.add('error');
+      fullNameInput.nextElementSibling.style.display = "flex";
+      fullNameInput.classList.add("error");
       inputFilled = true;
     } else {
-      fullNameInput.nextElementSibling.style.display = 'none';
-      fullNameInput.classList.remove('error');
+      fullNameInput.nextElementSibling.style.display = "none";
+      fullNameInput.classList.remove("error");
     }
 
     // Проверка ника
     if (!userNameInput.value.match(/^[A-Za-z0-9_-]+$/)) {
-      userNameInput.nextElementSibling.style.display = 'flex';
-      userNameInput.classList.add('error');
+      userNameInput.nextElementSibling.style.display = "flex";
+      userNameInput.classList.add("error");
       inputFilled = true;
     } else {
-      userNameInput.nextElementSibling.style.display = 'none';
-      userNameInput.classList.remove('error');
+      userNameInput.nextElementSibling.style.display = "none";
+      userNameInput.classList.remove("error");
     }
 
     // Проверка электронной почты
-    if (emailInput.value !== '' || !emailInput.value.includes('@')) {
-      emailInput.nextElementSibling.style.display = 'flex';
-      emailInput.classList.add('error');
+    if (emailInput.value !== "" || !emailInput.value.includes("@")) {
+      emailInput.nextElementSibling.style.display = "flex";
+      emailInput.classList.add("error");
       inputFilled = true;
     } else {
-      emailInput.nextElementSibling.style.display = 'none';
-      emailInput.classList.remove('error');
+      emailInput.nextElementSibling.style.display = "none";
+      emailInput.classList.remove("error");
     }
 
     // Проверка пароля
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (passwordInput.value !== '' || !passwordRegex.test(passwordInput.value)) {
-      passwordInput.nextElementSibling.style.display = 'flex';
-      passwordInput.classList.add('error');
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    if (
+      passwordInput.value !== "" ||
+      !passwordRegex.test(passwordInput.value)
+    ) {
+      passwordInput.nextElementSibling.style.display = "flex";
+      passwordInput.classList.add("error");
       inputFilled = true;
     } else {
-      passwordInput.nextElementSibling.style.display = 'none';
-      passwordInput.classList.remove('error');
+      passwordInput.nextElementSibling.style.display = "none";
+      passwordInput.classList.remove("error");
     }
 
     // Проверка повторного ввода пароля
-    if (passwordInput.value !== repeatPasswordInput.value || repeatPasswordInput.value === '') {
-      repeatPasswordInput.nextElementSibling.style.display = 'flex';
-      repeatPasswordInput.classList.add('error');
+    if (
+      passwordInput.value !== repeatPasswordInput.value ||
+      repeatPasswordInput.value === ""
+    ) {
+      repeatPasswordInput.nextElementSibling.style.display = "flex";
+      repeatPasswordInput.classList.add("error");
       inputFilled = true;
     } else {
-      repeatPasswordInput.nextElementSibling.style.display = 'none';
-      repeatPasswordInput.classList.remove('error');
+      repeatPasswordInput.nextElementSibling.style.display = "none";
+      repeatPasswordInput.classList.remove("error");
     }
 
     // Проверка соглашения с условиями
     if (!checkBox.checked) {
-      checkBox.nextElementSibling.style.display = 'flex';
-      checkBox.classList.add('error');
+      checkBox.nextElementSibling.style.display = "flex";
+      checkBox.classList.add("error");
       inputFilled = true;
     } else {
-      checkBox.nextElementSibling.style.display = 'none';
-      checkBox.classList.remove('error');
+      checkBox.nextElementSibling.style.display = "none";
+      checkBox.classList.remove("error");
     }
 
     if (localStorage.getItem("clients")) {
@@ -139,9 +142,9 @@ window.onload = function () {
         passwordInput,
         repeatPasswordInput,
       ].forEach((item) => {
-        checkBox.checked = false;
         item.value = "";
       });
+      checkBox.checked = false;
       modal.classList.remove("hidden");
     }
   });
@@ -149,8 +152,8 @@ window.onload = function () {
   const logIn = () => {
     modal.classList.add("hidden");
     registrationTitle.innerText = "Log in to the system";
-    fullName.remove();
-    email.remove();
+    fullNameInput.parentElement.remove();
+    emailInput.parentElement.remove();
     repeatPassword.remove();
     registrationTerms.remove();
     registrationAction.remove();
@@ -159,25 +162,28 @@ window.onload = function () {
     signAction.addEventListener("click", (e) => {
       let signActionFilled = false;
 
-      let storedClients = JSON.parse(localStorage.getItem('clients'));
+      let storedClients = JSON.parse(localStorage.getItem("clients"));
 
       if (userNameInput) {
-        if (!userNameInput.value || userNameInput.value !== storedClients.userName) {
+        if (
+          !userNameInput.value ||
+          userNameInput.value !== storedClients.userName
+        ) {
           signActionFilled = true;
-          userNameInput.classList.add('error');
+          userNameInput.classList.add("error");
         } else {
           signActionFilled = false;
-          userNameInput.classList.remove('error');
+          userNameInput.classList.remove("error");
         }
       }
 
       if (passwordInput) {
         if (!passwordInput.value) {
           signActionFilled = true;
-          passwordInput.classList.add('error');
+          passwordInput.classList.add("error");
         } else {
           signActionFilled = false;
-          passwordInput.classList.remove('error');
+          passwordInput.classList.remove("error");
         }
       }
 
@@ -189,13 +195,12 @@ window.onload = function () {
       }
     });
 
-    registrationSign.addEventListener('click', () => {
-      registrationSign.innerHTML = 'Registration';
-      window.location.href = '/index.html';
-    })
-  }
+    registrationSign.addEventListener("click", () => {
+      registrationSign.innerHTML = "Registration";
+      window.location.href = "/index.html";
+    });
+  };
 
-  modalClose.addEventListener('click', logIn);
-  registrationSign.addEventListener('click', logIn);
-
+  modalClose.addEventListener("click", logIn);
+  registrationSign.addEventListener("click", logIn);
 };
