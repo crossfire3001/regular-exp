@@ -13,12 +13,10 @@ window.onload = function () {
   const registrationSign = document.querySelector(".registration__sign");
 
   const registrationTitle = document.querySelector(".registration__title");
-  const repeatPassword = document.querySelector(".repeat-password");
   const registrationTerms = document.querySelector(".registration__terms");
   const registrationAction = document.querySelector(".registration__action");
   const signAction = document.querySelector(".sign__action");
 
-  const baseInput = document.querySelectorAll(".base__input");
 
   let clients = [];
 
@@ -45,13 +43,7 @@ window.onload = function () {
     }
   };
 
-  const error = () => {
-    errorInput.forEach((item) => {
-      item.style.display = "flex";
-    });
-  };
-
-  registrationBtn.addEventListener("click", (e) => {
+  const registration = (e) => {
     e.preventDefault();
 
     let inputFilled = false;
@@ -88,10 +80,10 @@ window.onload = function () {
 
     // Проверка пароля
     const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
     if (
-      passwordInput.value !== "" ||
-      !passwordRegex.test(passwordInput.value)
+        passwordInput.value !== "" ||
+        !passwordRegex.test(passwordInput.value)
     ) {
       passwordInput.nextElementSibling.style.display = "flex";
       passwordInput.classList.add("error");
@@ -103,8 +95,8 @@ window.onload = function () {
 
     // Проверка повторного ввода пароля
     if (
-      passwordInput.value !== repeatPasswordInput.value ||
-      repeatPasswordInput.value === ""
+        passwordInput.value !== repeatPasswordInput.value ||
+        repeatPasswordInput.value === ""
     ) {
       repeatPasswordInput.nextElementSibling.style.display = "flex";
       repeatPasswordInput.classList.add("error");
@@ -147,45 +139,51 @@ window.onload = function () {
       checkBox.checked = false;
       modal.classList.remove("hidden");
     }
-  });
+  }
+
+  registrationBtn.addEventListener("click", registration);
 
   const logIn = () => {
+    registrationBtn.removeEventListener('click', registration);
     modal.classList.add("hidden");
     registrationTitle.innerText = "Log in to the system";
     fullNameInput.parentElement.remove();
     emailInput.parentElement.remove();
-    repeatPassword.remove();
+    repeatPasswordInput.parentElement.remove();
     registrationTerms.remove();
     registrationAction.remove();
     signAction.classList.remove("hidden");
 
-    signAction.addEventListener("click", (e) => {
+    const localStorageUser = (e) => {
       let signActionFilled = false;
 
       let storedClients = JSON.parse(localStorage.getItem("clients"));
 
-      if (userNameInput) {
-        if (
-          !userNameInput.value ||
+
+      if (
+          !userNameInput.value &&
           userNameInput.value !== storedClients.userName
-        ) {
-          signActionFilled = true;
-          userNameInput.classList.add("error");
-        } else {
-          signActionFilled = false;
-          userNameInput.classList.remove("error");
-        }
+      ) {
+        userNameInput.nextElementSibling.style.display = 'flex';
+        userNameInput.classList.add("error");
+        signActionFilled = true;
+      } else {
+        userNameInput.nextElementSibling.style.display = 'none';
+        userNameInput.classList.remove("error");
+        signActionFilled = false;
       }
 
-      if (passwordInput) {
-        if (!passwordInput.value) {
-          signActionFilled = true;
-          passwordInput.classList.add("error");
-        } else {
-          signActionFilled = false;
-          passwordInput.classList.remove("error");
-        }
+
+      if (!passwordInput.value) {
+        passwordInput.nextElementSibling.style.display = 'flex';
+        passwordInput.classList.add("error");
+        signActionFilled = true;
+      } else {
+        passwordInput.nextElementSibling.style.display = 'none';
+        passwordInput.classList.remove("error");
+        signActionFilled = false;
       }
+
 
       if (!signActionFilled) {
         console.log("Добро пожаловать, " + userNameInput.value + "!");
@@ -193,7 +191,9 @@ window.onload = function () {
           item.value = "";
         });
       }
-    });
+    }
+
+    registrationBtn.addEventListener("click", localStorageUser);
 
     registrationSign.addEventListener("click", () => {
       registrationSign.innerHTML = "Registration";
@@ -202,5 +202,5 @@ window.onload = function () {
   };
 
   modalClose.addEventListener("click", logIn);
-  registrationSign.addEventListener("click", logIn);
+  registrationBtn.addEventListener("click", logIn);
 };
