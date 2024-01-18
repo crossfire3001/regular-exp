@@ -17,6 +17,8 @@ window.onload = function () {
   const registrationAction = document.querySelector(".registration__action");
   const signAction = document.querySelector(".sign__action");
 
+  const signBtn = document.querySelector('.sign__btn');
+
 
   let clients = [];
 
@@ -69,7 +71,7 @@ window.onload = function () {
     }
 
     // Проверка электронной почты
-    if (emailInput.value !== "" || !emailInput.value.includes("@")) {
+    if (!emailInput.value.includes("@")) {
       emailInput.nextElementSibling.style.display = "flex";
       emailInput.classList.add("error");
       inputFilled = true;
@@ -82,7 +84,6 @@ window.onload = function () {
     const passwordRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
     if (
-        passwordInput.value !== "" ||
         !passwordRegex.test(passwordInput.value)
     ) {
       passwordInput.nextElementSibling.style.display = "flex";
@@ -151,14 +152,14 @@ window.onload = function () {
     emailInput.parentElement.remove();
     repeatPasswordInput.parentElement.remove();
     registrationTerms.remove();
-    registrationAction.remove();
-    signAction.classList.remove("hidden");
+    registrationBtn.innerHTML = 'Sign In';
 
-    const localStorageUser = (e) => {
+    registrationBtn.addEventListener('click',(e) => {
+      e.preventDefault();
+
       let signActionFilled = false;
 
       let storedClients = JSON.parse(localStorage.getItem("clients"));
-
 
       if (
           !userNameInput.value &&
@@ -173,7 +174,6 @@ window.onload = function () {
         signActionFilled = false;
       }
 
-
       if (!passwordInput.value) {
         passwordInput.nextElementSibling.style.display = 'flex';
         passwordInput.classList.add("error");
@@ -184,23 +184,16 @@ window.onload = function () {
         signActionFilled = false;
       }
 
-
       if (!signActionFilled) {
         console.log("Добро пожаловать, " + userNameInput.value + "!");
         [userNameInput, passwordInput].forEach((item) => {
           item.value = "";
         });
       }
-    }
-
-    registrationBtn.addEventListener("click", localStorageUser);
-
-    registrationSign.addEventListener("click", () => {
-      registrationSign.innerHTML = "Registration";
-      window.location.href = "/index.html";
     });
   };
 
+
   modalClose.addEventListener("click", logIn);
-  registrationBtn.addEventListener("click", logIn);
+  registrationSign.addEventListener("click", logIn);
 };
