@@ -17,8 +17,8 @@ window.onload = function () {
   const registrationAction = document.querySelector(".registration__action");
   const signAction = document.querySelector(".sign__action");
 
-  const signBtn = document.querySelector('.sign__btn');
-
+  const signBtn = document.querySelector(".sign__btn");
+  const registrationText = document.querySelector(".registration__text");
 
   let clients = [];
 
@@ -82,10 +82,8 @@ window.onload = function () {
 
     // Проверка пароля
     const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
-    if (
-        !passwordRegex.test(passwordInput.value)
-    ) {
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+    if (!passwordRegex.test(passwordInput.value)) {
       passwordInput.nextElementSibling.style.display = "flex";
       passwordInput.classList.add("error");
       inputFilled = true;
@@ -96,8 +94,8 @@ window.onload = function () {
 
     // Проверка повторного ввода пароля
     if (
-        passwordInput.value !== repeatPasswordInput.value ||
-        repeatPasswordInput.value === ""
+      passwordInput.value !== repeatPasswordInput.value ||
+      repeatPasswordInput.value === ""
     ) {
       repeatPasswordInput.nextElementSibling.style.display = "flex";
       repeatPasswordInput.classList.add("error");
@@ -117,14 +115,16 @@ window.onload = function () {
       checkBox.classList.remove("error");
     }
 
-    if (localStorage.getItem("clients")) {
-      clients = JSON.parse(localStorage.getItem("clients"));
+    let storageClients = localStorage.getItem("clients");
+
+    if (storageClients) {
+      clients = JSON.parse(storageClients);
     }
 
     clients.push({
-      fullName: fullNameInput.value,
-      userName: userNameInput.value,
-      password: passwordInput.value,
+      fullName: fullNameInput.value.trim() !== "" ? fullNameInput.value : null,
+      userName: userNameInput.value.trim() !== "" ? userNameInput.value : null,
+      password: passwordInput.value.trim() !== "" ? passwordInput.value : null,
     });
     localStorage.setItem("clients", JSON.stringify(clients));
 
@@ -141,63 +141,82 @@ window.onload = function () {
       checkBox.checked = false;
       modal.classList.remove("hidden");
     }
-  }
+  };
 
   registrationBtn.addEventListener("click", registration);
 
   const logIn = () => {
-    registrationBtn.removeEventListener('click', registration);
+    registrationBtn.removeEventListener("click", registration);
     modal.classList.add("hidden");
     registrationTitle.innerText = "Log in to the system";
     fullNameInput.parentElement.remove();
     emailInput.parentElement.remove();
     repeatPasswordInput.parentElement.remove();
     registrationTerms.remove();
-    registrationBtn.innerHTML = 'Sign In';
-    let clients = JSON.parse(localStorage.getItem("clients"));
-    let registeredUser = clients.find(item => item.fullName);
-    registrationTitle.innerHTML = `Welcome, ${registeredUser.fullName}`;
+    registrationBtn.innerHTML = "Sign In";
+    registrationSign.remove();
 
-    registrationBtn.addEventListener('click',(e) => {
+    const logInUser = (e) => {
       e.preventDefault();
 
       let signActionFilled = false;
 
-      let storedClients = JSON.parse(localStorage.getItem("clients"));
-
-      if (
-          !userNameInput.value &&
-          userNameInput.value !== storedClients.userName
-      ) {
-        userNameInput.nextElementSibling.style.display = 'flex';
+      if (!userNameInput.value) {
+        userNameInput.nextElementSibling.style.display = "flex";
         userNameInput.classList.add("error");
         signActionFilled = true;
       } else {
-        userNameInput.nextElementSibling.style.display = 'none';
+        userNameInput.nextElementSibling.style.display = "none";
+        userNameInput.nextElementSibling.innerText =
+          "Заполните ник пользователя";
         userNameInput.classList.remove("error");
         signActionFilled = false;
-      }
 
-      if (!passwordInput.value) {
-        passwordInput.nextElementSibling.style.display = 'flex';
-        passwordInput.classList.add("error");
-        signActionFilled = true;
-      } else {
-        passwordInput.nextElementSibling.style.display = 'none';
-        passwordInput.classList.remove("error");
-        signActionFilled = false;
+        let storedClients = JSON.parse(localStorage.getItem("clients"));
+        let user = storedClients.find(
+          (item) => item.userName === userNameInput.value
+        );
+
+        if (user) {
+          if (!passwordInput.value) {
+            passwordInput.nextElementSibling.style.display = "flex";
+            passwordInput.classList.add("error");
+            signActionFilled = true;
+          } else {
+            passwordInput.nextElementSibling.style.display = "none";
+            passwordInput.classList.remove("error");
+            signActionFilled = false;
+          }
+        } else {
+          userNameInput.nextElementSibling.style.display = "flex";
+          userNameInput.nextElementSibling.innerText =
+            "Пользователь с таким ником не найден";
+          userNameInput.classList.add("error");
+          signActionFilled = true;
+        }
       }
 
       if (!signActionFilled) {
-        registrationTitle.innerHTML = `Welcome, ${userNameInput}`;
-        console.log("Добро пожаловать, " + userNameInput.value + "!");
-        [userNameInput, passwordInput].forEach((item) => {
-          item.value = "";
+        let storedClients = JSON.parse(localStorage.getItem("clients"));
+        let user = storedClients.find(
+          (item) => item.userName === userNameInput.value
+        );
+        registrationTitle.innerHTML = `Welcome, ${user.fullName}`;
+        registrationText.remove();
+
+        userNameInput.parentElement.remove();
+        passwordInput.parentElement.remove();
+        registrationBtn.innerHTML = "Exit";
+
+        registrationBtn.removeEventListener("click", logInUser);
+        registrationBtn.addEventListener("click", () => {
+          location.reload();
         });
       }
-    });
-  };
+    };
 
+    registrationBtn.addEventListener("click", logInUser);
+  };
 
   modalClose.addEventListener("click", logIn);
   registrationSign.addEventListener("click", logIn);
