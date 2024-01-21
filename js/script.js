@@ -122,6 +122,7 @@ window.onload = function () {
     }
 
     clients.push({
+      fullName: fullNameInput.value,
       userName: userNameInput.value,
       password: passwordInput.value,
     });
@@ -153,6 +154,9 @@ window.onload = function () {
     repeatPasswordInput.parentElement.remove();
     registrationTerms.remove();
     registrationBtn.innerHTML = 'Sign In';
+    let clients = JSON.parse(localStorage.getItem("clients"));
+    let registeredUser = clients.find(item => item.fullName);
+    registrationTitle.innerHTML = `Welcome, ${registeredUser.fullName}`;
 
     registrationBtn.addEventListener('click',(e) => {
       e.preventDefault();
@@ -185,6 +189,7 @@ window.onload = function () {
       }
 
       if (!signActionFilled) {
+        registrationTitle.innerHTML = `Welcome, ${userNameInput}`;
         console.log("Добро пожаловать, " + userNameInput.value + "!");
         [userNameInput, passwordInput].forEach((item) => {
           item.value = "";
