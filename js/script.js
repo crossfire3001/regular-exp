@@ -159,18 +159,14 @@ window.onload = function () {
     const logInUser = (e) => {
       e.preventDefault();
 
-      let signActionFilled = false;
-
       if (!userNameInput.value) {
         userNameInput.nextElementSibling.style.display = "flex";
         userNameInput.classList.add("error");
-        signActionFilled = true;
       } else {
         userNameInput.nextElementSibling.style.display = "none";
         userNameInput.nextElementSibling.innerText =
           "Заполните ник пользователя";
         userNameInput.classList.remove("error");
-        signActionFilled = false;
 
         let storedClients = JSON.parse(localStorage.getItem("clients"));
         let user = storedClients.find(
@@ -181,22 +177,30 @@ window.onload = function () {
           if (!passwordInput.value) {
             passwordInput.nextElementSibling.style.display = "flex";
             passwordInput.classList.add("error");
-            signActionFilled = true;
           } else {
             passwordInput.nextElementSibling.style.display = "none";
             passwordInput.classList.remove("error");
-            signActionFilled = false;
+            registrationTitle.innerHTML = `Welcome, ${user.fullName}`;
+            registrationText.remove();
+
+            userNameInput.parentElement.remove();
+            passwordInput.parentElement.remove();
+            registrationBtn.innerHTML = "Exit";
+
+            registrationBtn.removeEventListener("click", logInUser);
+            registrationBtn.addEventListener("click", () => {
+              location.reload();
+            });
           }
         } else {
           userNameInput.nextElementSibling.style.display = "flex";
           userNameInput.nextElementSibling.innerText =
             "Пользователь с таким ником не найден";
           userNameInput.classList.add("error");
-          signActionFilled = true;
         }
       }
 
-      if (!signActionFilled) {
+      /* if (!signActionFilled) {
         let storedClients = JSON.parse(localStorage.getItem("clients"));
         let user = storedClients.find(
           (item) => item.userName === userNameInput.value
@@ -212,7 +216,7 @@ window.onload = function () {
         registrationBtn.addEventListener("click", () => {
           location.reload();
         });
-      }
+      } */
     };
 
     registrationBtn.addEventListener("click", logInUser);
